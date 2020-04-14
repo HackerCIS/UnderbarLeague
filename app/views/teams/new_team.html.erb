@@ -1,0 +1,47 @@
+<div>
+    <table>
+        <tr><h1>팀정보를 입력하세요</h1></tr>
+        <tr>
+            <td>리그이름: </td>
+            <td><%= @league.league_name %></td>
+        </tr>
+        <tr>
+            <td>리그종류: </td>
+            <td><%= @league.league_type %></td>
+        </tr>
+        <tr>
+            <td>팀리스트: </td>
+        </tr>
+        <% @league.teams.each do |team| %>
+            <tr>
+                <% if team.logoimg.attached? %>
+                    <td><img src="<%= url_for(team.logoimg) %>" width="30" height="<2></2>0"></td>
+                <% else %>>
+                    <td>logo</td>
+                <% end %>
+
+                <td><%= team.team_name %></td>
+            </tr>
+        <% end %>
+        
+        <form action="/leagues/<%= @league.id %>/teams/create_team" method="POST" enctype="multipart/form-data">
+            <tr>
+                <td>팀  입력: </td>
+                <td>
+                    <span><input type="text" name="team_name"></span>
+                    <span><input type="file" name="logoimg"></span>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><button type="submit">팀추가</button></td>   
+            </tr>
+        </form>
+        
+        <tr>
+            <td></td>
+            <td><a href="/matchs/result_new/<%= @league.id %>">경기결과입력</a></td>
+        </tr>
+
+    </table>
+</div>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;800&display=swap"
+      rel="stylesheet"
+    />
+    <title>League Score Board</title>
+  </head>
+  <body class="body">
+    <header class="header"></header>
+    <main class="main">
+      
+      <form action="/matchs/result_enter/<%= @league.id %>" method="POST">
+      
+      <div class="score">
+        <div class="score__board">
+          <div class="score__board-text">Score</div>
+        </div>
+        <div class="score__time">00:00</div>
+        <div class="score__team">
+          <div class="score__team-home">
+            <div>
+              <select name="home_team">
+            			<% @league.teams.each do |team| %>
+            			    <option value="<%= team.team_name %>"><%= team.team_name %></option>
+        			    <% end %>
+            		</select>
+            </div>
+            <div class="home__score">
+              <input type="number" name="home_score" class="home__score-number" />
+            </div>
+            
+            <div class="home__button">
+              <button class="home_upButton">Up</button>
+              <button class="home_downButton">Down</button>
+            </div>
+          
+          </div>
+          <div class="score__team-semi">:</div>
+          <div class="score__team-away">
+            <div>
+              <select name="away_team">
+            			<% @league.teams.each do |team| %>
+            			    <option value="<%= team.team_name %>"><%= team.team_name %></option>
+        			    <% end %>
+            		</select>
+            </div>
+            <div class="away__score">
+              <input type="number" name="away_score" class="away__score-number" />
+            </div>
+            <div class="away__button">
+              <button class="away_upButton">Up</button>
+              <button class="away_downButton">Down</button>
+            </div>
+          </div>
+        </div>
+        <div class="score__time__button">
+          <button class="score__time-start">Start</button>
+          <button class="score__time-reset">Reset</button>
+          <button type="submit" class="score__time-result">결과전송</button>
+        </div>
+      </div>
+      
+      </form>
+      
+    </main>
+    
+    <script>
+      var homeScoreNumber = 0;
+      var awayScoreNumber = 0;
+      var second = 0;
+      var minute = 0;
+      var timerId = null;
+      
+      
+      $(".home_upButton").click(function(e){
+        e.preventDefault();
+        homeScoreNumber += 1
+        $(".home__score-number").val(homeScoreNumber);
+      });
+      
+      $(".home_downButton").click(function(e){
+        e.preventDefault();
+        if (homeScoreNumber > 0) {
+          homeScoreNumber -= 1
+          $(".home__score-number").val(homeScoreNumber);
+        }
+      });
+      
+      $(".away_upButton").click(function(e){
+        e.preventDefault();
+        awayScoreNumber += 1
+        $(".away__score-number").val(awayScoreNumber);
+      });
+      
+      $(".away_downButton").click(function(e){
+        e.preventDefault();
+        if (awayScoreNumber > 0) {
+          awayScoreNumber -= 1
+          $(".away__score-number").val(awayScoreNumber);
+        }
+      });
+      
+      $(".score__time-start").click(function(e){
+        e.preventDefault();
+        if (timerId == null) {
+            timerId = setInterval(function(e){
+            second = second + 1;
+            
+            if (second == 60) {
+              second = 0;
+              minute = minute + 1;
+            }
+          
+            $(".score__time").html(`${minute < 10 ? `0${minute}` : minute}:${second < 10 ? `0${second}` : second}`);
+            
+          }, 1000);
+          
+          $(".score__time-start").html("Pause");
+          
+        } else if (timerId != null) {
+          clearInterval(timerId);
+          timerId = null;
+          $(".score__time-start").html("Start");
+        }
+      });
+      
+      $(".score__time-reset").click(function(e){
+        minute = 0;
+        second = 0;
+        $(".score__time").html(`${minute < 10 ? `0${minute}` : minute}:${second < 10 ? `0${second}` : second}`);
+      });
+      
+      
+    </script>
+    
+    
+  </body>
+</html>

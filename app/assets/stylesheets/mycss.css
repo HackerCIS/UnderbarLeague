@@ -1,0 +1,118 @@
+.body {
+  font-family: "Orbitron", sans-serif;
+  background-color: black;
+}
+
+.score__team {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 50px;
+}
+
+.score__board-text {
+  text-align: center;
+  width: 400px;
+  height: 100x;
+  border-radius: 30px;
+  font-size: 100px;
+  color: white;
+}
+
+.score__board {
+  display: flex;
+  justify-content: space-around;
+}
+
+.home__button,
+.away__button {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 60px;
+}
+
+.home_upButton,
+.home_downButton,
+.away_upButton,
+.away_downButton {
+  border: none;
+  outline: none;
+  width: 150px;
+  height: 50px;
+  border-radius: 30px;
+}
+
+.score__time {
+  flex: display;
+  justify-content: space-around;
+  text-align: center;
+  color: white;
+  font-size: 70px;
+}
+.score__time__button {
+  flex: display;
+  justify-content: space-around;
+  text-align: center;
+  color: white;
+  font-size: 70px;
+}
+
+.score__time-start,
+.score__time-result,
+.score__time-reset {
+  margin-top: 60px;
+  border: none;
+  outline: none;
+  width: 150px;
+  height: 50px;
+  border-radius: 30px;
+}
+
+.score__time-start {
+  background-color: #0074d9;
+}
+
+.score__time-reset {
+  background-color: white;
+}
+
+.score__time-result {
+  background-color: #f012be;
+}
+
+.score__team-semi {
+  color: white;
+  font-size: 150px;
+}
+
+.home__score-number,
+.away__score-number {
+  font-family: "Orbitron", sans-serif;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-size: 150px;
+  text-align: center;
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 300px;
+  color: white;
+}
+
+.home_downButton,
+.away_downButton {
+  margin-left: 80px;
+  background-color: #ffdc00;
+}
+
+.home_upButton,
+.away_upButton {
+  background-color: #01ff70;
+  margin-right: 45px;
+}
+
+.home__score,
+.away__score {
+  margin-left: 40px;
+  width: 100%;
+}
