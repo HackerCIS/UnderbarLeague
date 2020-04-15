@@ -7,6 +7,7 @@ class LeaguesController < ApplicationController
     
     @league.league_name = params[:league_name]
     @league.league_type = params[:league_type]
+    @league.user_id = current_user.id
     
     @league.save      
     
@@ -19,6 +20,7 @@ class LeaguesController < ApplicationController
   end
 
   def list_league
+    @user = current_user
   end
 
   def show_league

@@ -16,7 +16,7 @@
             <tr>
                 <% if team.logoimg.attached? %>
                     <td><img src="<%= url_for(team.logoimg) %>" width="30" height="<2></2>0"></td>
-                <% else %>>
+                <% else %>
                     <td>logo</td>
                 <% end %>
 
@@ -25,6 +25,7 @@
         <% end %>
         
         <form action="/leagues/<%= @league.id %>/teams/create_team" method="POST" enctype="multipart/form-data">
+            <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
             <tr>
                 <td>팀  입력: </td>
                 <td>

@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
-  root "leagues#new_league"
+  devise_for :users
+  root "leagues#list_league"
   
   get 'matchs/result_new/:id' => "matchs#result_new"
   post 'matchs/result_enter/:id' => "matchs#result_enter"
   get 'matchs/result_show/:id' => "matchs#result_show"
   
-  get 'matchs/test/:id' => "matchs#test"
-  
+
   
   get 'matchs/result_input' => "matchs#result_input"
   get 'matchs/test/:id' => "matchs#test"
