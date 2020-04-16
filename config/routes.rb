@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   devise_for :users
   root "leagues#list_league"
   
@@ -22,4 +23,10 @@ Rails.application.routes.draw do
   get 'leagues/list_league' => "leagues#list_league"
   get 'leagues/show_league/:id' => "leagues#show_league"
   get 'leagues/delete_league' => "leagues#delete_league"
+  
+  
+  get 'boards/standings/:id' => "boards#standings"
+  get 'boards/score' => "boards#score"
+  get 'boards/player' => "boards#player"
+  get 'boards/schedule' => "boards#schedule"
 end

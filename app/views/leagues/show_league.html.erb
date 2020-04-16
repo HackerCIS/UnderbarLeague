@@ -9,22 +9,52 @@
             <td><%= @league.league_type %></td>
         </tr>
         <tr>
-            <td>팀리스트: </td>
-        </tr>
-        <% @league.teams.each do |team| %>
-            <tr>
-                <% if team.logoimg.attached? %>
-                    <td><img src="<%= url_for(team.logoimg) %>" width="30" height="<2></2>0"></td>
-                <% else %>
-                    <td>logo</td>
-                <% end %>
-
-                <td><%= team.team_name %></td>
-            </tr>
-        <% end %>
-        <tr>
-            <td></td>
-            <td><a href="/matchs/result_new/<%= @league.id %>">리그경기결과입력</a></td>
+            <td>리그 소속팀: </td>
         </tr>
     </table>
+    <table>
+        <tr>
+        <% @league.teams.each do |team| %>
+            <% if team.logoimg.attached? %>
+                <td><img src="<%= url_for(team.logoimg) %>" width="30" height="<2></2>0"></td>
+            <% else %>
+                <td>logo</td>
+            <% end %>
+
+            <td><%= team.team_name %></td>
+            
+        <% end %>
+        </tr>
+    </table>
+    
+    <br>
+    <p>순위표</p>
+    <table>
+        <tr>
+            <th>순위</th>
+            <th>팀명</th>
+            <th>승</th>
+            <th>무</th>
+            <th>패</th>
+            <th>승률</th>
+            <th>득점</th>
+            <th>실점</th>
+        </tr>
+        
+        <% @tests.each do |test| %>
+            <tr>
+                <td></td>
+                <td><%= test.home_team %></td>
+                <td><%= test.count_win %></td>
+                <td><%= test.count_draw %></td>
+                <td><%= test.count_lose %></td>
+                <td><%= test.win_rate %></td>
+                <td><%= test.sum_point %></td>
+                <td><%= test.sum_lose_point %></td>
+    
+            </tr>
+        <% end %>
+    </table>
+    
+    <a href="/matchs/result_new/<%= @league.id %>">리그경기결과입력</a>
 </div>
