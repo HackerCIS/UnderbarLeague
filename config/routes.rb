@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'team_members/join' => "team_members#join"
+  post 'team_members/join_complete' => "team_members#join_complete"
   devise_for :users
   root "leagues#list_league"
   

@@ -41,16 +41,16 @@
             <th>실점</th>
         </tr>
         
-        <% @tests.each do |test| %>
+        <% @matchs.each do |match| %>
             <tr>
                 <td></td>
-                <td><%= test.home_team %></td>
-                <td><%= test.count_win %></td>
-                <td><%= test.count_draw %></td>
-                <td><%= test.count_lose %></td>
-                <td><%= test.win_rate %></td>
-                <td><%= test.sum_point %></td>
-                <td><%= test.sum_lose_point %></td>
+                <td><%= match.home_team %></td>
+                <td><%= match.count_win %></td>
+                <td><%= match.count_draw %></td>
+                <td><%= match.count_lose %></td>
+                <td><%= number_with_precision(match.win_rate, precision: 3) %></td>
+                <td><%= match.sum_point %></td>
+                <td><%= match.sum_lose_point %></td>
     
             </tr>
         <% end %>

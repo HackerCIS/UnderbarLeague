@@ -6,7 +6,7 @@ class BoardsController < ApplicationController
 #    @tmpteams = @league.matchs.group(:home_team).sum(:home_score)
     
 #    @tests = @league.matchs.select('home_team, AVG(home_score) AS sum_score').group(:home_team)
-     @tests = @league.matchs.select('home_team, COUNT(CASE WHEN home_match_result="승" THEN 1 END) AS count_win, COUNT(CASE WHEN home_match_result="무" THEN 1 END) AS count_draw, COUNT(CASE WHEN home_match_result="패" THEN 1 END) AS count_lose, SUM(home_score) AS sum_point, SUM(away_score) AS sum_lose_point, COUNT(home_team) AS win_rate').group(:home_team).order(count_win: :desc)
+     @tests = @league.matchs.select('home_team, COUNT(CASE WHEN home_match_result="승" THEN 1 END) AS count_win, COUNT(CASE WHEN home_match_result="무" THEN 1 END) AS count_draw, COUNT(CASE WHEN home_match_result="패" THEN 1 END) AS count_lose, COUNT(CASE WHEN home_match_result="승" THEN 1 END)/COUNT(home_team) AS win_rate, SUM(home_score) AS sum_point, SUM(away_score) AS sum_lose_point').group(:home_team).order(count_win: :desc)
      
      
      
