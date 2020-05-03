@@ -1,5 +1,6 @@
 class TeamMembersController < ApplicationController
   def join
+    @user = current_user
     @leagues = League.all
   end
   

@@ -28,6 +28,8 @@ class MatchsController < ApplicationController
       @match.away_match_result = "무"
     end
     
+    
+    #날짜넣는걸로 수정필요
     @match.match_date = "20200412"
     
     @match.save
@@ -51,13 +53,14 @@ class MatchsController < ApplicationController
       @match.away_match_result = "무"
     end
     
+    #날짜넣는걸로 수정필요
     @match.match_date = "20200412"
     
     @match.save
     
     
     
-    redirect_to "/matchs/result_show/#{@league.id}"
+    redirect_to "/leagues/show_league/#{@league.id}" 
   end
   
   def result_show

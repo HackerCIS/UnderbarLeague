@@ -32,7 +32,7 @@
             		</select>
             </div>
             <div class="home__score">
-              <input type="number" name="home_score" class="home__score-number" />
+              <input type="number" name="home_score" class="home__score-number" value="0" />
             </div>
             
             <div class="home__button">
@@ -51,7 +51,7 @@
             		</select>
             </div>
             <div class="away__score">
-              <input type="number" name="away_score" class="away__score-number" />
+              <input type="number" name="away_score" class="away__score-number" value="0" />
             </div>
             <div class="away__button">
               <button class="away_upButton">Up</button>
@@ -131,11 +131,14 @@
       });
       
       $(".score__time-reset").click(function(e){
+        e.preventDefault();
         minute = 0;
         second = 0;
         $(".score__time").html(`${minute < 10 ? `0${minute}` : minute}:${second < 10 ? `0${second}` : second}`);
       });
       
+     
+    
       
     </script>
     

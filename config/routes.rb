@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
 
+  get 'joinleagues/create' => "joinleagues#create"
+  post 'joinleagues/create_complete' => "joinleagues#create_complete"
+  
   get 'team_members/join' => "team_members#join"
   post 'team_members/join_complete' => "team_members#join_complete"
-  devise_for :users
+  devise_for :users, controllers: {omniauth_callbacks: 'users/omniauth_callbacks'}
   root "leagues#list_league"
   
   get 'matchs/result_new/:id' => "matchs#result_new"

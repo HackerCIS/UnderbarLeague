@@ -20,7 +20,6 @@ class LeaguesController < ApplicationController
   end
 
   def list_league
-    @user = current_user
   end
 
   def show_league

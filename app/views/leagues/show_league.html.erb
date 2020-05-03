@@ -1,60 +1,149 @@
-<div>
-    <table>
-        <tr>
-            <td>리그이름: </td>
-            <td><%= @league.league_name %></td>
-        </tr>
-        <tr>
-            <td>리그종류: </td>
-            <td><%= @league.league_type %></td>
-        </tr>
-        <tr>
-            <td>리그 소속팀: </td>
-        </tr>
-    </table>
-    <table>
-        <tr>
-        <% @league.teams.each do |team| %>
-            <% if team.logoimg.attached? %>
-                <td><img src="<%= url_for(team.logoimg) %>" width="30" height="<2></2>0"></td>
-            <% else %>
-                <td>logo</td>
-            <% end %>
-
-            <td><%= team.team_name %></td>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
+    <title>Show league</title>
+    <style type="text/css">
+        body{
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+        h2{
+            font-size: 60px;
+            margin-left: 100px;
+            padding-top: 20px;
+        }
+        h4{
+            font-size: 30px;
+            margin-left: 100px;
+        }
+        .league__detail{
+            height: 160px;
+            color: white;
+            margin-top: 5px;
+            margin-right: 5px;
+            margin-left: 5px;
+            background-color: #37003C;
+        }
+        .league__teamList{
+            display: flex;
+            text-align: center;
+        }
+        .league__teamComment{
+            display:flex;
+            justify-content: space-around;
+        }
+        .league__teamComment-text{
+            color: #76766F;
+            margin-top: 0px;
+            margin-left: 130px;
+            height: 40px;
+            padding: 8px 28px;
+            border-radius: 20px;
+            line-height: 24px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: .02em;
+        }
+        .league__teamBox{
+            display:flex;
+            justify-content: space-around;
             
-        <% end %>
-        </tr>
-    </table>
-    
-    <br>
-    <p>순위표</p>
-    <table>
-        <tr>
-            <th>순위</th>
-            <th>팀명</th>
-            <th>승</th>
-            <th>무</th>
-            <th>패</th>
-            <th>승률</th>
-            <th>득점</th>
-            <th>실점</th>
-        </tr>
+        }
+        .league__teamBox-list{
+            margin-top: 5px;
+        }
+        .league__image{
+            width: 40px;
+            height:40px;
+        }
+        .league__rankTable{
+            display:flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-direction:column;
+            margin-top: 100px;
+            margin-left: 10px;
+            text-align: left;
+        }
+        .league__table{
+            width:1350px;
+            font-size: 13px;
+        }
+
         
-        <% @matchs.each do |match| %>
-            <tr>
-                <td></td>
-                <td><%= match.home_team %></td>
-                <td><%= match.count_win %></td>
-                <td><%= match.count_draw %></td>
-                <td><%= match.count_lose %></td>
-                <td><%= number_with_precision(match.win_rate, precision: 3) %></td>
-                <td><%= match.sum_point %></td>
-                <td><%= match.sum_lose_point %></td>
-    
-            </tr>
+    </style>
+</head>
+<body>
+    <div class="league__teamList">
+         
+            <div class="league__teamComment-text">리그 소속팀</div>
+            
+            <div class="league__teamBox">
+                    <% @league.teams.each do |team| %>
+                        <div class="league__teamBox-list">
+                            <% if team.logoimg.attached? %>
+                                <div class="league__image">
+                                    <img src="<%= url_for(team.logoimg) %>" width="30" height="30">
+                                </div>
+                            <% else %>
+                                <td>logo미등록</td>
+                            <% end %>
+                        </div>
+                    <% end %>
+            </div>
+    </div>
+    <div class="league__detail">
+        <h2 class="league__what"><%= @league.league_type %></h2>
+        <h4 class="league__name"><%= @league.league_name %></h4>
+    </div>
+        
+
+    <br>
+    <div class="league__rankTable">
+        <div class="league__table">
+            <table class="table table-hover">
+                <thead class="thead-light">
+                    <tr>
+                        <th style="column-width: 96px" scope="col">순위</th>
+                        <th style="column-width: 415px" scope="col">팀명</th>
+                        <th style="column-width: 90px" scope="col">승</th>
+                        <th style="column-width: 90px" scope="col">무</th>
+                        <th style="column-width: 90px" scope="col">패</th>
+                        <th style="column-width: 90px" scope="col">승률</th>
+                        <th style="column-width: 75px" scope="col">득점</th>
+                        <th style="column-width: 75px" scope="col">실점</th>
+                    </tr>
+                </thead>
+                
+                <% @matchs.each do |match| %>
+                    <tr>
+                        <td></td>
+                        <td><%= match.home_team %></td>
+                        <td><%= match.count_win %></td>
+                        <td><%= match.count_draw %></td>
+                        <td><%= match.count_lose %></td>
+                        <td><%= number_with_precision(match.win_rate, precision: 3) %></td>
+                        <td><%= match.sum_point %></td>
+                        <td><%= match.sum_lose_point %></td>
+            
+                    </tr>
+                <% end %>
+            </table>
+        </div>
+        
+        <!-- 본인이 생성한 리그가 아니면, 경기결과 입력불가 -->
+        <% if current_user.id==@league.user_id %>
+            <div class="league__input">
+                <a href="/matchs/result_new/<%= @league.id %>">리그경기결과입력</a>
+            </div>
+        <% else %>
         <% end %>
-    </table>
+    </div>
     
-    <a href="/matchs/result_new/<%= @league.id %>">리그경기결과입력</a>
-</div>
+</body>
+</html>
+
+
+
