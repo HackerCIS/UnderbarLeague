@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_03_141819) do
+ActiveRecord::Schema.define(version: 2020_05_08_135307) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 2020_05_03_141819) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "leaguecode"
     t.index ["user_id"], name: "index_leagues_on_user_id"
   end
 
@@ -62,6 +63,8 @@ ActiveRecord::Schema.define(version: 2020_05_03_141819) do
     t.integer "league_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "home_logo"
+    t.string "away_logo"
     t.index ["league_id"], name: "index_matches_on_league_id"
   end
 

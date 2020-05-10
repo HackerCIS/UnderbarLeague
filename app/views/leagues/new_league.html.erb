@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/3c72e91e44.js" crossorigin="anonymous"></script>
     <title>New League</title>
     <style type="text/css">
+        body{
+            font-family: 'Noto Sans KR', sans-serif;
+        }
         input,
         button{
            margin:0;
@@ -20,9 +24,58 @@
         	outline:0;
         }
         .loginInfo{
+            margin-left:30px;
+            margin-top:10px;
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
             margin-right: 50px;
+        }
+        .loginInfo_home{
+            margin-top:4px;   
+        }
+        .loginInfo_link{
+            font-size: 25px;
+            color: black;
+            font-family: helvetica;
+            text-decoration: none;
+        }
+        .loginInfo_link:hover{
+            font-size: 25px;
+            color: black;
+            font-family: helvetica;
+            text-decoration: none;
+        }
+        .loginInfo__logout-text{
+            font-size: 12px;
+            color: white;
+            font-family: helvetica;
+            text-decoration: none;
+            padding-bottom:2px;
+        }
+        .loginInfo_info{
+            display:flex;
+        }
+        .loginInfo__comment{
+            font-weight:700;
+            color:#7F0F77;
+            font-size: 30px;
+            margin-right: 10px;
+        }
+        .loginInfo__comment2{
+            font-size: 14px;
+            margin-right: 10px;
+            margin-top: 14px;
+        }
+        .loginInfo__logout{
+            text-align: center;
+            background-color:#273075;
+            width:72px;
+            height:26px;
+            border: 1px solid black;
+            border-radius: 10px;
+            padding-bottom:10px;
+            margin-top:10px;
+            
         }
         .newLeague{
             margin-top: 150px;
@@ -79,10 +132,24 @@
 </head>
 <body>
     <% if user_signed_in? %>
-        <div class="loginInfo">
-            <span class="loginInfo__email"><%= current_user.email %></span> 
-            <span class="loginInfo__comment">님 안녕하세요.</span>
-            <a href="/users/sign_out" data-method="delete">로그아웃</a>
+       <div class="loginInfo">
+            <div class="loginInfo_home">
+                <a class="loginInfo_link" href="/">
+                    <i class="far fa-futbol"></i>
+                    <span class=:loginInfo_home-text>____League</span>
+                </a>
+            </div>
+            <div class="loginInfo_info">
+                <span class="loginInfo__comment">
+                    <%= current_user.name %>
+                </span>
+                <span class="loginInfo__comment2">
+                    님
+                </span>
+                <div class="loginInfo__logout">
+                    <a class="loginInfo__logout-text" href="/users/sign_out" data-method="delete">로그아웃</a>
+                </div>
+            </div>
         </div>
     
         <hr>

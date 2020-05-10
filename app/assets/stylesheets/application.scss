@@ -15,3 +15,20 @@
  */
 
 @import "bootstrap";
+
+.mypage,
+.league__detail{
+    height: 160px;
+    color: white;
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-left: 5px;
+    background-image: asset-url("banner_img.jpg");
+    /*background-color: #37003C;*/
+    font-size: 30px;
+    padding-top: 20px;
+}
+
+.mainBody{
+    background-image:asset-url("soccerground_bg.jpg");
+}

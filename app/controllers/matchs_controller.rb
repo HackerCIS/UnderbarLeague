@@ -13,7 +13,13 @@ class MatchsController < ApplicationController
     
     @match.league_id = @league.id
     @match.home_team = params[:home_team]
+    @hometeam = Team.find_by(team_name: params[:home_team])
+    @match.home_logo = @hometeam.logoimg
+    
     @match.away_team = params[:away_team]
+    @awayteam = Team.find_by(team_name: params[:away_team])
+    @match.away_logo = @awayteam.logoimg
+    
     @match.home_score = params[:home_score]
     @match.away_score = params[:away_score]
     
@@ -38,7 +44,14 @@ class MatchsController < ApplicationController
     
     @match.league_id = @league.id
     @match.home_team = params[:away_team]
+    @hometeam = Team.find_by(team_name: params[:away_team])
+    @match.home_logo = @hometeam.logoimg
+
     @match.away_team = params[:home_team]
+    @awayteam = Team.find_by(team_name: params[:home_team])
+    @match.away_logo = @awayteam.logoimg
+
+    
     @match.home_score = params[:away_score]
     @match.away_score = params[:home_score]
     

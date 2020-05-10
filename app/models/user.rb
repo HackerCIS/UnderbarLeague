@@ -8,7 +8,7 @@ class User < ApplicationRecord
    has_many :team_members
    has_many :teams, through: :team_members
    
-   has_many :joinleagues
+   has_many :joinleagues, dependent: :destroy
    has_many :joined_leagues, through: :joinleagues, source: :league
    
 end

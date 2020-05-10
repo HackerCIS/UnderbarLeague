@@ -1,48 +1,281 @@
-<div>
-    <table>
-        <tr><h1>팀정보를 입력하세요</h1></tr>
-        <tr>
-            <td>리그이름: </td>
-            <td><%= @league.league_name %></td>
-        </tr>
-        <tr>
-            <td>리그종류: </td>
-            <td><%= @league.league_type %></td>
-        </tr>
-        <tr>
-            <td>팀리스트: </td>
-        </tr>
-        <% @league.teams.each do |team| %>
-            <tr>
-                <% if team.logoimg.attached? %>
-                    <td><img src="<%= url_for(team.logoimg) %>" width="30" height="<2></2>0"></td>
-                <% else %>
-                    <td>logo</td>
-                <% end %>
-
-                <td><%= team.team_name %></td>
-            </tr>
-        <% end %>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://kit.fontawesome.com/3c72e91e44.js" crossorigin="anonymous"></script>
+    <title>New Team</title>
+    <style type="text/css">
+        body{
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        button{
+           margin:0;
+        	border:0;
+        	padding:0;
+        	display:inline-block;
+        	vertical-align:middle;
+        	white-space:normal;
+        	background:none;
+        	line-height:1;
+        }
+        .loginInfo{
+            margin-left:30px;
+            margin-top:10px;
+            display: flex;
+            justify-content: space-between;
+            margin-right: 50px;
+        }
+        .loginInfo_home{
+            margin-top:4px;   
+        }
+        .loginInfo_link{
+            font-size: 25px;
+            color: black;
+            font-family: helvetica;
+            text-decoration: none;
+        }
+        .loginInfo_link:hover{
+            font-size: 25px;
+            color: black;
+            font-family: helvetica;
+            text-decoration: none;
+        }
+        .loginInfo__logout-text{
+            font-size: 12px;
+            color: white;
+            font-family: helvetica;
+            text-decoration: none;
+            padding-bottom:2px;
+        }
+        .loginInfo_info{
+            display:flex;
+        }
+        .loginInfo__comment{
+            font-weight:700;
+            color:#7F0F77;
+            font-size: 30px;
+            margin-right: 10px;
+        }
+        .loginInfo__comment2{
+            font-size: 14px;
+            margin-right: 10px;
+            margin-top: 14px;
+        }
+        .loginInfo__logout{
+            text-align: center;
+            background-color:#273075;
+            width:72px;
+            height:26px;
+            border: 1px solid black;
+            border-radius: 10px;
+            padding-bottom:10px;
+            margin-top:10px;
+            
+        }
+        .info{
+            margin-top:100px;
+            font-size:30px;
+            display:flex;
+            justify-content:space-around;
+        }
+        .leagueName,
+        .leagueKind{
+            margin-top:30px;
+            display:flex;
+            justify-content:center;
+        }
+        .leagueTeam{
+            display:flex;
+            justify-content:center;
+        }
+        .leagueName__comment,
+        .leagueName__name,
+        .leagueKind__comment,
+        .leagueKind__name{
+            text-align:center;
+            padding-top:18px;
+            color:white;
+            width:140px;
+            height:62px;
+            box-shadow: 2px 2px 8px 1px rgba(0,0,0,0.25);
+        }
+        .leagueName__comment,
+        .leagueKind__comment{
+            background-color:#37003C;
+            border-radius:10px 0 0 10px;
+        }
+        .leagueName__name,
+        .leagueKind__name{
+            background-color:#cda7d1;
+            border-radius:0 10px 10px 0;
+        }
+      
         
-        <form action="/leagues/<%= @league.id %>/teams/create_team" method="POST" enctype="multipart/form-data">
-            <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-            <tr>
-                <td>팀  입력: </td>
-                <td>
-                    <span><input type="text" name="team_name"></span>
-                    <span><input type="file" name="logoimg"></span>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><button type="submit">팀추가</button></td>   
-            </tr>
-        </form>
-        
-        <tr>
-            <td></td>
-            <td><a href="/matchs/result_new/<%= @league.id %>">경기결과입력</a></td>
-        </tr>
+        .leagueTeam__list{
+            display:flex;
+            justify-content:center;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        .leagueTeam__list-amb{
+            font-size:13px;
+            margin-left:5px;
+            margin-right:5px;
+            width:72px;
+            height:90px;
+            border:1px solid #cda7d1;
+        }
+        .team__amb-image{
+            width:70px;
+            height:70px;
+        }
+        .team__name{
+            text-align:center;
+        }
+        .leagueTeam__form{
+            margin-top: 30px;
+            display:flex;
+            align-items:center;
+            flex-direction:column;
+            text-align:center;
+        }
+        .leagueTeam__form-img input[type="file"] {
+            position: absolute;
+            width: 0;
+            height: 0;
+            padding: 0;
+            overflow: hidden;
+            border: 0;
+        }
+        .leagueTeam__form-img label {
+            margin-top: 20px;
+            display: inline-block;
+            padding: 10px 60px;
+            color: #37003C;
+            vertical-align: middle;
+            background-color: #fdfdfd;
+            cursor: pointer;
+            border: 1px solid #37003C;
+            border-radius: 5px;
+        }
+        .leagueTeam__form-name label { 
+            padding: .8em .5em;
+            color: #37003C; 
+            cursor: text; 
+        }
+        .leagueTeam__form-name input[type="text"] { 
+            width: 100%; /* 원하는 너비 설정 */ 
+            height: auto; /* 높이값 초기화 */ 
+            line-height : normal; /* line-height 초기화 */ 
+            padding: .8em .5em; /* 원하는 여백 설정, 상하단 여백으로 높이를 조절 */ 
+            font-family: inherit; /* 폰트 상속 */ 
+            border: 1px solid #999; 
+            border-radius: 0; /* iSO 둥근모서리 제거 */ 
+            outline-style: none; /* 포커스시 발생하는 효과 제거를 원한다면 */ 
+            -webkit-appearance: none; /* 브라우저별 기본 스타일링 제거 */ 
+            -moz-appearance: none; 
+            appearance: none; 
+        }
+        .team_button{
+            color: white;
+            margin-top:10px;
+            padding-top:10px;
+            padding-bottom:10px;
+            width:210px;
+            height:30spx;
+            background-color:black;
+            border-radius:4px;
+        }
+        .team_complete{
+            color: white;
+            margin-top:10px;
+            padding-top:10px;
+            padding-bottom:30px;
+            width:150px;
+            height:40px;
+            background-color:#37003C;
+            border-radius:4px;
+        }
 
-    </table>
-</div>
+
+    </style>
+  </head>
+  <body>
+    <% if user_signed_in? %>
+       <div class="loginInfo">
+            <div class="loginInfo_home">
+                <a class="loginInfo_link" href="/">
+                    <i class="far fa-futbol"></i>
+                    <span class=:loginInfo_home-text>____League</span>
+                </a>
+            </div>
+            <div class="loginInfo_info">
+                <span class="loginInfo__comment">
+                    <%= current_user.name %>
+                </span>
+                <span class="loginInfo__comment2">
+                    님
+                </span>
+                <div class="loginInfo__logout">
+                    <a class="loginInfo__logout-text" href="/users/sign_out" data-method="delete">로그아웃</a>
+                </div>
+            </div>
+        </div>
+        <div class="info">
+            <div class="info__comment">팀 정보를 입력하세요</div>
+        </div>
+        <div class="info__box">
+            <div class="leagueName">
+                <div class="leagueName__comment">리그이름</div>
+                <div class="leagueName__name"><%= @league.league_name %></div>
+            </div>
+            <div class="leagueKind">
+                <div class="leagueKind__comment">종목</div>
+                <div class="leagueKind__name"><%= @league.league_type %></div>
+            </div>
+     
+            <span class="leagueTeam__list">Team List</span>
+        
+            <div class="leagueTeam">
+              <% @league.teams.each do |team| %>
+                <div class="leagueTeam__list-amb">
+                       <% if team.logoimg.attached? %>
+                           <div class="team__amb">
+                               <img class="team__amb-image" src="<%= url_for(team.logoimg) %>" >
+                           </div>
+                           
+                       <% else %>
+                           <td>logo</td>
+                       <% end %>
+                           <div class="team__name">
+                               <%= team.team_name %>
+                           </div>
+                </div>
+             <% end %>
+            </div>
+        </div>
+        <div class="leagueTeam__form">
+            <div class="leagueTeam__form-text">팀 입력</div>
+            <form action="/leagues/<%= @league.id %>/teams/create_team" method="POST" enctype="multipart/form-data">
+                <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                <div class="leagueTeam__form-name">
+                    <label for="ex_input">팀 이름을 입력하세요</label>
+                    <input type="text" id="ex_input" name="team_name" placeholder="팀 이름을 입력하세요">
+                </div>
+                <div class="leagueTeam__form-img">
+                    <label for="file">앰블럼 업로드</label>
+                    <input type="file" id="file" name="logoimg" required>
+                </div>
+                <button class="team_button" type="submit">팀추가</button>
+            </form>
+            <button class="team_complete" onclick="window.location.href = '/leagues/list_league';">완료하고 돌아가기</button>
+        </div>
+    <%else %>
+        <div class="loginBox">
+            <a href="/users/sign_in">로그인</a>
+        </div>
+    <% end %>    
+  </body>
+</html>

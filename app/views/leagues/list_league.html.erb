@@ -1,59 +1,317 @@
-<% if user_signed_in? %>
-    <%= current_user.email %> 님 안녕하세요.
-    <a href="/users/sign_out" data-method="delete">로그아웃</a>
-    <hr>
-    <%= current_user.email %>님의 리그페이지<br>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link href="http://fonts.googleapis.com/earlyaccess/notosanskr.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/3c72e91e44.js" crossorigin="anonymous"></script>
+    <title>My page</title>
+    <style type="text/css">
+        body{
+            postion: relative;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        
+        input,
+        button{
+           margin:0;
+        	border:0;
+        	padding:0;
+        	display:inline-block;
+        	vertical-align:middle;
+        	white-space:normal;
+        	background:none;
+        	line-height:1;
+        }
+        .codeform__input{
+            text-align:center;
+            border: 1px solid grey;
+            border-radius: 4spx;
+            width:117px;
+            height:30px;
+            background-color:white;
+            margin-bottom:6px;
+            margin-left: 12px;
+        }
+        .codeform__input:hover{
+            box-shadow: 2px 2px 8px 1px rgba(0,0,0,0.20);
+        }
+        .codeform__button{
+            width:100px;
+            height:26px;
+            border: 1px solid skyblue; 
+            background-color: rgba(0,0,0,0); 
+            color: skyblue; 
+            padding: 5px;
+            border-radius:4px;
+            margin-bottom:3px;
+        }
+        .codeform__button:hover{
+            color:white; 
+            background-color: skyblue;
+        }
+        .loginInfo{
+            margin-left:30px;
+            margin-top:10px;
+            display: flex;
+            justify-content: space-between;
+            margin-right: 50px;
+        }
+        .loginInfo_home{
+            margin-top:4px;   
+        }
+        .loginInfo_link{
+            font-size: 25px;
+            color: black;
+            font-family: helvetica;
+            text-decoration: none;
+        }
+        .loginInfo_link:hover{
+            font-size: 25px;
+            color: black;
+            font-family: helvetica;
+            text-decoration: none;
+        }
+        .loginInfo__logout-text{
+            font-size: 12px;
+            color: white;
+            font-family: helvetica;
+            text-decoration: none;
+            padding-bottom:2px;
+        }
+        .loginInfo_info{
+            display:flex;
+        }
+        .loginInfo__comment{
+            font-weight:700;
+            color:#7F0F77;
+            font-size: 30px;
+            margin-right: 10px;
+        }
+        .loginInfo__comment2{
+            font-size: 14px;
+            margin-right: 10px;
+            margin-top: 14px;
+        }
+        .loginInfo__logout{
+            text-align: center;
+            background-color:#273075;
+            width:72px;
+            height:26px;
+            border: 1px solid black;
+            border-radius: 10px;
+            padding-bottom:10px;
+            margin-top:10px;
+            
+        }
 
-    <hr>
-    <table border="1px">
-        <tr>
-            <td width="250">
-                본인이 생성한 리그
-            </td width="250">
-            <td>
-                본인이 가입한 리그
-            </td>
-        </tr>
-        <tr>
-            <td>
+        .mypage__comment{
+            margin-left: 100px;
+            padding-top:30px;
+            font-size: 40px;
+        }
+        
+        .mypage__genLeague,
+        .mypage__joinLeague{
+            margin-left: 20%;
+            margin-top:40px;
+        }
+        .mypage__genLeagueBox,
+        .mypage__joinLeagueBox{
+            display:flex;
+        }
+        .mypage__genLeague-making{
+            font-size: 12px;
+            margin-left: 9px;
+        }
+        .mypage__genLeague-comment,
+        .mypage__joinLeague-comment{
+            font-size:25px;
+            color:#37003C;
+            font-weight:600;
+        }
+        
+        .mypage__genLeague-box,
+        .mypage__joinLeague-box{
+            text-align:center;
+            margin-top: 10px;
+            margin-right: 20px;
+            width:166px;
+            height:160px;
+            border-radius:5px;
+            border: 3px solid #260746;
+            box-shadow: 2px 2px 8px 1px rgba(0,0,0,0.25);
+        }
+        
+        .mypage__genLeague-box:hover,
+        .mypage__joinLeague-box:hover{
+            border: 4px solid #260746;
+            transition: all ease 0.2s 0s;
+            
+        }
+        
+        .mypage__genLeague-box:hover
+        .boxcontent__name-text{
+            background-color: #21181f;
+        }
+        
+        .mypage__joinLeague-box:hover
+        .boxcontent__name-text{
+            background-color: #21181f;
+        }
+        
+        .boxcontent__name-text{
+            color: white;
+            width:100%;
+            height: 33px;
+            background-color:#260746;
+            transition: all ease 0.2s 0s;
+        }
+        .boxContent__name-context{
+            height: 33px;
+        }
+        .boxContent__total{
+            text-align: center;
+        }
+        .boxContent__code,
+        .boxContent__code2{
+            text-align: center;
+            height:40px;
+            width:164px;
+            border: 2px solid black;
+            border-radius: 5px;
+            margin-top: 6px;
+            margin-right: 20px;
+            box-shadow: 2px 2px 8px 1px rgba(0,0,0,0.25);
+        }
+        
+    </style>
+  </head>
+  <body>
+      <% if user_signed_in? %>
+        <div class="loginInfo">
+            <div class="loginInfo_home">
+                <a class="loginInfo_link" href="/">
+                    <i class="far fa-futbol"></i>
+                    <span class=:loginInfo_home-text>____League</span>
+                </a>
+            </div>
+            <div class="loginInfo_info">
+                <span class="loginInfo__comment">
+                    <%= current_user.name %>
+                </span>
+                <span class="loginInfo__comment2">
+                    님
+                </span>
+                <div class="loginInfo__logout">
+                    <a class="loginInfo__logout-text" href="/users/sign_out" data-method="delete">로그아웃</a>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="mypage">
+            <div class="mypage__comment">
+                내 정보
+            </div>
+        </div>
+        <hr>
+        <div class="mypage__genLeague">
+            <span class="mypage__genLeague-comment">생성한 리그</span>
+            <span class="mypage__genLeague-making">
+                <a class="btn btn-outline-dark btn-sm" href="/leagues/new_league" role="button">신규리그 생성하기</a>
+            </span>
+            <div class="mypage__genLeagueBox">
                 <% current_user.leagues.each do |league| %>
-                    리그명: <%= league.league_name %> <br>
-                    리그종류: <%= league.league_type %> <br>
-                    <a href="/leagues/show_league/<%= league.id %>">리그상세보기</a>
-                    <hr>
+                    <div class="boxContent__total">
+                        <div style=" cursor: pointer;" onclick="location.href='/leagues/show_league/<%= league.id %>'" class="mypage__genLeague-box">
+                            <div class="boxContent__name">
+                                <div class="boxcontent__name-text">
+                                    League Name
+                                </div>
+                                <div class="boxContent__name-context">
+                                     <%= league.league_name %>
+                                </div>
+                            </div>
+                            <div class="boxContent__kind">
+                                <div class="boxcontent__name-text">
+                                    League Category
+                                </div>
+                                <div class="boxcontent__name-context">
+                                    <%= league.league_type %>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="boxContent__code" value=<%= league.leaguecode %>>코드 복사</button>
+                        <div>
+                            <button class="boxContent__code2" onclick="window.location.href = '/leagues/delete_league/<%= league.id %>';">리그 삭제</button>
+                        </div>
+                    </div>
                 <% end %>
-            </td>
-            <td>
+            </div>
+        </div>
+        <div class="mypage__joinLeague">
+            <form action="/leagues/list_league" method="GET">
+                <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                <span class="mypage__joinLeague-comment">가입한 리그</span>
+                <input class="codeform__input" type="text" name="query" placeholder="코드 기입">
+                <button class="codeform__button" type="summit">리그가입하기</button>
+            </form>
+            <div class="mypage__joinLeagueBox">
                 <% current_user.joined_leagues.each do |league| %>
-                    리그명: <%= league.league_name %> <br>
-                    리그종류: <%= league.league_type %> <br>
-                    <a href="/leagues/show_league/<%= league.id %>">리그상세보기</a>
-                    <hr>
+                    <div style=" cursor: pointer;" onclick="location.href='/leagues/show_league/<%= league.id %>'" class="mypage__joinLeague-box">
+                        <div class="boxContent__name">
+                            <div class="boxcontent__name-text">
+                                League Name
+                            </div>
+                            <div class="boxContent__name-context">
+                                 <%= league.league_name %>
+                            </div>
+                        </div>
+                        <div class="boxContent__kind">
+                            <div class="boxcontent__name-text">
+                                League Category
+                            </div>
+                            <div class="boxcontent__name-context">
+                                <%= league.league_type %>
+                            </div>
+                        </div>
+                    </div>
                 <% end %>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <a href="/leagues/new_league">신규리그생성하기</a>
-            </td>
-            <td>
-                <form action="" method="POST">
-                    <input type="text" name="" placeholder="소속리그코드">
-                    <button type="summit">리그가입하기</button>
-                </form>
-                <a href="/joinleagues/create">(임시)소속리그 설정</a><br>
-                <a href="/team_members/join">(임시)소속 팀 설정</a>
-            </td>
-        </tr>
-    </table>
-    <hr>
+            </div>
+        </div>
     
     
-    
-<%else %>
-    <a href="/users/sign_in">로그인</a>
-    <hr>
-<% end %>
+    <%else %>
+        <div class="loginBox">
+            <a href="/users/sign_in">로그인</a>
+        </div>
+    <% end %>
+
+
+    <script>
+        console.log("abc");
+        const copyBtn = document.getElementsByClassName("boxContent__code");
+        const copyCode = document.getElementsByClassName("boxContent__code-text");
+        const alertMsg = document.querySelector(".alert");
+        
+        function print(e){
+            const value = e.target.value
+            navigator.clipboard.writeText(value).then(function(){
+                alert('클립보드에 복사완료');
+            })
+        }
+        
+        function init(){
+            for(let i=0; i<copyBtn.length; i++){
+                copyBtn[i].addEventListener("click", print);
+            }
+        }
+        
+        init();
+    </script>
+  </body>
+</html>
 
 
 

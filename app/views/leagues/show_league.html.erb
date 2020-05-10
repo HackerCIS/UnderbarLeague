@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/3c72e91e44.js" crossorigin="anonymous"></script>
     <title>Show league</title>
     <style type="text/css">
         body{
-            font-family: 'Nanum Gothic', sans-serif;
+            font-family: 'Noto Sans KR', sans-serif;
         }
         h2{
             font-size: 60px;
@@ -18,8 +19,122 @@
             font-size: 30px;
             margin-left: 100px;
         }
+        .loginInfo{
+            margin-left:30px;
+            margin-top:10px;
+            display: flex;
+            justify-content: space-between;
+            margin-right: 50px;
+        }
+        .loginInfo_home{
+            margin-top:4px;   
+        }
+        .loginInfo_link{
+            font-size: 25px;
+            color: black;
+            font-family: helvetica;
+            text-decoration: none;
+        }
+        .loginInfo_link:hover{
+            font-size: 25px;
+            color: black;
+            font-family: helvetica;
+            text-decoration: none;
+        }
+        .loginInfo__logout-text{
+            font-size: 12px;
+            color: white;
+            font-family: helvetica;
+            text-decoration: none;
+            padding-bottom:2px;
+        }
+        .loginInfo_info{
+            display:flex;
+        }
+        .loginInfo__comment{
+            font-weight:700;
+            color:#7F0F77;
+            font-size: 30px;
+            margin-right: 10px;
+        }
+       .loginInfo{
+            margin-left:30px;
+            margin-top:10px;
+            display: flex;
+            justify-content: space-between;
+            margin-right: 50px;
+        }
+        .loginInfo_home{
+            margin-top:4px;   
+        }
+        .loginInfo_link{
+            font-size: 25px;
+            color: black;
+            font-family: helvetica;
+            text-decoration: none;
+        }
+        .loginInfo_link:hover{
+            font-size: 25px;
+            color: black;
+            font-family: helvetica;
+            text-decoration: none;
+        }
+        .loginInfo__logout-text{
+            font-size: 12px;
+            color: white;
+            font-family: helvetica;
+            text-decoration: none;
+            padding-bottom:2px;
+        }
+        .loginInfo_info{
+            display:flex;
+        }
+        .loginInfo__comment{
+            font-weight:700;
+            color:#7F0F77;
+            font-size: 30px;
+            margin-right: 10px;
+        }
+        .loginInfo__comment2{
+            font-size: 14px;
+            margin-right: 10px;
+            margin-top: 14px;
+        }
+        .loginInfo__logout{
+            text-align: center;
+            background-color:#273075;
+            width:72px;
+            height:26px;
+            border: 1px solid black;
+            border-radius: 10px;
+            padding-bottom:10px;
+            margin-top:10px;
+            
+        }
+        .league__input{
+            padding-top:5px;
+            text-align: center;
+            background-color:#180D49;
+            width:191px;
+            height:40px;
+            margin-bottom:10px;
+            border-radius:10px;
+            box-shadow: 1px 1px 8px 3px rgba(0,0,0,0.40);
+        }
+        .league__input-text{
+            font-size: 20px;
+            color: white;
+            font-family: helvetica;
+            text-decoration: none;
+        }
+        .league__input-text:hover{
+            font-size: 20px;
+            color: white;
+            font-family: helvetica;
+            text-decoration: none;
+        }
         .league__detail{
-            height: 160px;
+            height: 190px;
             color: white;
             margin-top: 5px;
             margin-right: 5px;
@@ -63,85 +178,215 @@
             justify-content: space-around;
             align-items: center;
             flex-direction:column;
-            margin-top: 100px;
+            margin-top: 60px;
             margin-left: 10px;
             text-align: left;
         }
         .league__table{
-            width:1350px;
-            font-size: 13px;
+            max-width:1000px;
+            font-size: 16px;
+            text-align:center;
+        }
+        .lastMatch{
+            display:flex;
+            justify-content: center;
+        }
+        
+        .lastMatch__comment{
+            margin-top:20px;
+            margin-bottom:10px;
+            display:flex;
+            justify-content:center;
+        }
+        .lastMatch__comment-box{
+            text-align:center;
+            padding-top:10px;
+            color:white;
+            width:169px;
+            height:48px;
+            background-color:#4d20a0;
+            border-radius: 8px;
+            box-shadow: 1px 1px 8px 3px rgba(0,0,0,0.24);
+            
+        }
+        .lastMatch__first-home,
+        .lastMatch__first-away,
+        .lastMatch__second-home,
+        .lastMatch__second-away,
+        .lastMatch__third-home,
+        .lastMatch__third-away{
+            font-size:20px;
+            width:200px;
+            height:32px;
+            margin-top: 10px;
+        }
+        .lastMatch__first-home,
+        .lastMatch__second-home,
+        .lastMatch__third-home{
+            text-align:right;
+            margin-right:10px;
+        }
+        .lastMatch__first-away,
+        .lastMatch__second-away,
+        .lastMatch__third-away{
+            margin-left:10px;
+        }
+        .semi{
+            margin-top:18px;
         }
 
         
     </style>
 </head>
 <body>
-    <div class="league__teamList">
-         
-            <div class="league__teamComment-text">리그 소속팀</div>
-            
-            <div class="league__teamBox">
-                    <% @league.teams.each do |team| %>
-                        <div class="league__teamBox-list">
-                            <% if team.logoimg.attached? %>
-                                <div class="league__image">
-                                    <img src="<%= url_for(team.logoimg) %>" width="30" height="30">
-                                </div>
-                            <% else %>
-                                <td>logo미등록</td>
-                            <% end %>
-                        </div>
-                    <% end %>
+    <% if user_signed_in? %>
+       <div class="loginInfo">
+            <div class="loginInfo_home">
+                <a class="loginInfo_link" href="/">
+                    <i class="far fa-futbol"></i>
+                    <span class=:loginInfo_home-text>____League</span>
+                </a>
             </div>
-    </div>
-    <div class="league__detail">
-        <h2 class="league__what"><%= @league.league_type %></h2>
-        <h4 class="league__name"><%= @league.league_name %></h4>
-    </div>
-        
-
-    <br>
-    <div class="league__rankTable">
-        <div class="league__table">
-            <table class="table table-hover">
-                <thead class="thead-light">
-                    <tr>
-                        <th style="column-width: 96px" scope="col">순위</th>
-                        <th style="column-width: 415px" scope="col">팀명</th>
-                        <th style="column-width: 90px" scope="col">승</th>
-                        <th style="column-width: 90px" scope="col">무</th>
-                        <th style="column-width: 90px" scope="col">패</th>
-                        <th style="column-width: 90px" scope="col">승률</th>
-                        <th style="column-width: 75px" scope="col">득점</th>
-                        <th style="column-width: 75px" scope="col">실점</th>
-                    </tr>
-                </thead>
-                
-                <% @matchs.each do |match| %>
-                    <tr>
-                        <td></td>
-                        <td><%= match.home_team %></td>
-                        <td><%= match.count_win %></td>
-                        <td><%= match.count_draw %></td>
-                        <td><%= match.count_lose %></td>
-                        <td><%= number_with_precision(match.win_rate, precision: 3) %></td>
-                        <td><%= match.sum_point %></td>
-                        <td><%= match.sum_lose_point %></td>
-            
-                    </tr>
-                <% end %>
-            </table>
+            <div class="loginInfo_info">
+                <span class="loginInfo__comment">
+                    <%= current_user.name %>
+                </span>
+                <span class="loginInfo__comment2">
+                    님
+                </span>
+                <div class="loginInfo__logout">
+                    <a class="loginInfo__logout-text" href="/users/sign_out" data-method="delete">로그아웃</a>
+                </div>
+            </div>
         </div>
-        
-        <!-- 본인이 생성한 리그가 아니면, 경기결과 입력불가 -->
-        <% if current_user.id==@league.user_id %>
-            <div class="league__input">
-                <a href="/matchs/result_new/<%= @league.id %>">리그경기결과입력</a>
+        <hr>
+        <div class="league__teamList">
+             
+                <div class="league__teamComment-text">리그 소속팀</div>
+                
+                <div class="league__teamBox">
+                        <% @league.teams.each do |team| %>
+                            <div class="league__teamBox-list">
+                                <% if team.logoimg.attached? %>
+                                    <div class="league__image">
+                                        <img src="<%= url_for(team.logoimg) %>" width="30" height="30">
+                                    </div>
+                                <% else %>
+                                    <td>logo미등록</td>
+                                <% end %>
+                            </div>
+                        <% end %>
+                </div>
+        </div>
+        <div class="league__detail">
+            <h2 class="league__what"><%= @league.league_type %></h2>
+            <h4 class="league__name"><%= @league.league_name %></h4>
+        </div>
+        <div class="lastMatch__comment">
+            <div class="lastMatch__comment-box">
+                최근 경기(3경기)
+            </div>
+        </div>
+        <% if @matchslast1.present? %>
+            <div class="lastMatch">
+                <div class="lastMatch__first-home">
+                    <img src="<%= url_for(Team.find_by(team_name: @matchslast1.home_team).logoimg) %>" height="40" width="40">
+                    <%= @matchslast1.home_team %>
+                    <%= @matchslast1.home_score %>
+                </div>
+                <span class="semi">:</span>
+                <div class="lastMatch__first-away">
+                    <%= @matchslast1.away_score %>
+                    <%= @matchslast1.away_team %>
+                    <img src="<%= url_for(Team.find_by(team_name: @matchslast1.away_team).logoimg) %>" height="40" width="40">
+                </div>
             </div>
         <% else %>
         <% end %>
-    </div>
+        
+        <% if @matchslast2.present? %>
+            <div class="lastMatch">
+                <div class="lastMatch__second-home">
+                    <img src="<%= url_for(Team.find_by(team_name: @matchslast2.home_team).logoimg) %>" height="40" width="40">
+                    <%= @matchslast2.home_team %>
+                    <%= @matchslast2.home_score %>
+                </div>
+                <span class="semi">:</span>
+                <div class="lastMatch__second-away">
+                    <%= @matchslast2.away_score %>
+                    <%= @matchslast2.away_team %>
+                    <img src="<%= url_for(Team.find_by(team_name: @matchslast2.away_team).logoimg) %>" height="40" width="40">
+                </div>
+            </div>
+        <% else %>
+        <% end %>
+        
+        <% if @matchslast3.present? %>
+            <div class="lastMatch">
+                <div class="lastMatch__third-home">
+                    <img src="<%= url_for(Team.find_by(team_name: @matchslast3.home_team).logoimg) %>" height="40" width="40">
+                    <%= @matchslast3.home_team %>
+                    <%= @matchslast3.home_score %>
+                </div>
+                <span class="semi">:</span>
+                <div class="lastMatch__third-away">
+                    <%= @matchslast3.away_score %>
+                    <%= @matchslast3.away_team %>
+                    <img src="<%= url_for(Team.find_by(team_name: @matchslast3.away_team).logoimg) %>" height="40" width="40">
+                </div>
+            </div>
+        <% else %>
+        <% end %>
     
+        <br>
+        <div class="league__rankTable">
+            <!-- 본인이 생성한 리그가 아니면, 경기결과 입력불가 -->
+            <% if current_user.id==@league.user_id %>
+                <div class="league__input">
+                    <a class="league__input-text" href="/matchs/result_new/<%= @league.id %>">리그경기결과입력</a>
+                </div>
+            <% else %>
+            <% end %>
+            <div class="league__table">
+                <table class="table table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th style="column-width: 96px" scope="col">순위</th>
+                            <th style="column-width: 415px" scope="col">팀명</th>
+                            <th style="column-width: 90px" scope="col">승</th>
+                            <th style="column-width: 90px" scope="col">무</th>
+                            <th style="column-width: 90px" scope="col">패</th>
+                            <th style="column-width: 90px" scope="col">승률</th>
+                            <th style="column-width: 75px" scope="col">득점</th>
+                            <th style="column-width: 75px" scope="col">실점</th>
+                        </tr>
+                    </thead>
+                    
+                    <% @matchs.each_with_index do |match, index| %>
+                        <tr>
+                            <td><%= index + 1 %></td>
+                            <td>
+                                <!-- 로고입력 필요 -->
+                                <img src="<%= url_for(Team.find_by(team_name: match.home_team).logoimg) %>" height="20" width="20">
+                                <%= match.home_team %>
+                            </td>
+                            <td><%= match.count_win %></td>
+                            <td><%= match.count_draw %></td>
+                            <td><%= match.count_lose %></td>
+                            <td><%= number_with_precision(match.win_rate, precision: 3)%></td>
+                            <td><%= match.sum_point %></td>
+                            <td><%= match.sum_lose_point %></td>
+                
+                        </tr>
+                    <% end %>
+                </table>
+            </div>
+        </div>
+    <%else %>
+        <div class="loginBox">
+            <a href="/users/sign_in">로그인</a>
+        </div>
+    <% end %>
 </body>
 </html>
 

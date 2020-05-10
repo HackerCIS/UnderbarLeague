@@ -27,7 +27,7 @@ Rails.application.routes.draw do
   get 'leagues/modify_league' => "leagues#modify_league"
   get 'leagues/list_league' => "leagues#list_league"
   get 'leagues/show_league/:id' => "leagues#show_league"
-  get 'leagues/delete_league' => "leagues#delete_league"
+  get 'leagues/delete_league/:id' => "leagues#delete_league"
   
   
   get 'boards/standings/:id' => "boards#standings"
